@@ -1,0 +1,32 @@
+//My first App Script that sends an email with gmail and says in side "Hello World".
+
+function createAndSendDocument{
+  try{
+    //Create a new Google Doc named "Hello World".
+    const doc = DocumentApp.create('Hello, World!');
+    
+    //Access the body of the document, then add a paragraph.
+    doc.getBody().appendParagraph('This document was created by MarkNieto and the technology of AppScript');
+    
+    //Get the URL of the document.
+    const url = doc.getUrl();
+    
+    //Get the email address of the active user - that's me(: 
+    const email = Session.getActiveUser().getEmail();
+    
+    //Get the name of the document to use as email subject line.
+    const subject = doc.getName();
+    
+    //App a new string to the "url" variable to use as an email body.
+    const body = 'Link to you document: ' + url;
+    
+    //Send yourself an email with a link to your document.
+    GmailApp.sendEmail(email, body, subject);
+    
+  }catch(err){
+  
+  //TODO (developer) - Handle exception
+  Logger.log('Failed with error %s', err.message);
+  
+  }
+}
